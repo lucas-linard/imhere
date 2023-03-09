@@ -4,12 +4,17 @@ import { styles } from "./styles";
 
 import { Button } from "../Button";
 
-export function Participant() {
+type Props = { 
+    name?: string,
+    onRemove?: () => void
+}
+
+export function Participant({ name, onRemove} : Props) {
 
 return(
     <View style={styles.container}>
-        <Text style={styles.name} >Participant</Text>
-        <Button title='-' onPress={() => {}} style={styles.button} />
+        <Text style={styles.name} >{name}</Text>
+        <Button title='-' onPress={() => onRemove} style={styles.button} />
     </View>
 )
 
