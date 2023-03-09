@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView } from "react-native";
+import { View, Text, TextInput, ScrollView, FlatList } from "react-native";
 
 import { Participant } from "../../components/Participant";
 import { Button } from "../../components/Button";
@@ -6,7 +6,7 @@ import { Button } from "../../components/Button";
 import { styles } from "./styles";
 
 export default function Home() {
-  const participants = ["Lucas", "Jorge", "Matias", "Felipe"];
+  const participants = ["Lucas", "Jorge", "Matias", "Felipe",'Julia','Isadora','Ana','Sarah'];
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>Home</Text>
@@ -19,15 +19,17 @@ export default function Home() {
         />
         <Button title="+" onPress={() => {}} />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {participants.map((participant) => (
-          <Participant
-            key={participant}
-            name={participant}
-            onRemove={() => {}}
-          />
-        ))}
-      </ScrollView>
+      <FlatList
+        data={participants}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
+          <Participant name={item} onRemove={() => {}} />
+        )}
+        showsHorizontalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <Text style={styles.listEmptyText}>Nenhum participante</Text>
+        )}
+      ></FlatList>
     </View>
   );
 }
