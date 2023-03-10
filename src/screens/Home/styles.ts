@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     marginBottom: 42,
   },
   listEmptyText:{
-    colort : 'FFF',
+    color : '#FFF',
     fontSize: 16,
     textAlign: 'center',
   }
