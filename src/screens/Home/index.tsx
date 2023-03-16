@@ -27,8 +27,8 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.eventName}>Home</Text>
-      <Text style={styles.eventDate}>Home</Text>
+      <Text style={styles.eventName}>Nome do evento</Text>
+      <Text style={styles.eventDate}>Sexta, 10 de Fevereiro de 2023</Text>
       <View style={styles.form}>
         <TextInput
           style={styles.input}
