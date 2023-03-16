@@ -1,4 +1,5 @@
-import { View, Text, TextInput, ScrollView, FlatList } from "react-native";
+import { useState } from "react";
+import { View, Text, TextInput, Alert, FlatList } from "react-native";
 
 import { Participant } from "../../components/Participant";
 import { Button } from "../../components/Button";
@@ -6,7 +7,24 @@ import { Button } from "../../components/Button";
 import { styles } from "./styles";
 
 export default function Home() {
-  const participants = ["Lucas", "Jorge", "Matias", "Felipe",'Julia','Isadora','Ana','Sarah'];
+  const [participants, setParticipant] = useState<string[]>([]);
+  const [participantName, setParticipantName] = useState("");
+
+  function handleParticipantAdd(name: string) {
+    if(participants.includes(name)) {
+     return Alert.alert("Participante já cadastrado", "Este participante já está cadastrado"  );
+    }
+    setParticipant(prevState => [...prevState, name])
+    setParticipantName('')
+  }
+
+  function handleParticipantRemove(name: string) {
+    Alert.alert("Remover participante", `Deseja remover ${name} da lista?`, [
+      { text: "Não", style:"cancel" ,onPress: () => {} },
+      { text: "Sim", onPress: () => {setParticipant(prevState => prevState.filter(p => p !== name))} },
+    ]);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>Home</Text>
@@ -16,14 +34,16 @@ export default function Home() {
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor="#6b6b6b"
+          value={participantName}
+          onChangeText={(text) => setParticipantName(text)}
         />
-        <Button title="+" onPress={() => {}} />
+        <Button title="+" onPress={() => handleParticipantAdd(participantName)} />
       </View>
       <FlatList
         data={participants}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
-          <Participant name={item} onRemove={() => {}} />
+          <Participant key={item} name={item} onRemove={() => handleParticipantRemove(item)} />
         )}
         showsHorizontalScrollIndicator={false}
         ListEmptyComponent={() => (
